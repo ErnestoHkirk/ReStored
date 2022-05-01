@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace API.Entities
 {
-    public class Product
+    public class Product // all the properties for the product entity
     {
-        public int Id { get; set; }
+        public int Id { get; set; } // quick create with 'prop' -> tab
         public string Name { get; set; }
         public string Description { get; set; } 
         public long Price { get; set; }

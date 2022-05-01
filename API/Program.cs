@@ -10,16 +10,16 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args) //start
         {
-            var host = CreateHostBuilder(args).Build();
-            using var scope = host.Services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            var host = CreateHostBuilder(args).Build(); //hosted by kestral, creates kestral server with some default settings
+            using var scope = host.Services.CreateScope(); // scope created from services, using keyword disposes of scope
+            var context = scope.ServiceProvider.GetRequiredService<StoreContext>(); // use scope to access store context
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>(); // log to terminal any errors
             try
             {
-                context.Database.Migrate();
-                DbInitializer.Initialize(context);
+                context.Database.Migrate(); // automatically move forward with any migrations
+                DbInitializer.Initialize(context); // gives dbinitializer the context to add products to database
             }
             catch (Exception ex)
             {
@@ -28,11 +28,11 @@ namespace API
             host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) => //method
+            Host.CreateDefaultBuilder(args) // configures it with some defaults
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>(); //starts it with a starter class (startup.cs)
                 });
     }
 }
