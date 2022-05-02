@@ -4,7 +4,7 @@ import { history } from "../..";
 
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 500)); //
 
-axios.defaults.baseURL = "http://localhost:5000/api/"; //
+axios.defaults.baseURL = "http://localhost:5000/api/"; // base url
 
 const responseBody = (response: AxiosResponse) => response.data; // helper method, extracts response.data
 
