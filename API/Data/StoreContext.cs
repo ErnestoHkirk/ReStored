@@ -14,7 +14,7 @@ namespace API.Data
     // translates them into sql, grabs the data, and then maps them back 
     // into the entities.
     {
-        // constructor that allows options to be passed options when an instance
+        // constructor that allows options to be passed as options when an instance
         // of the store context is created, options are passed up to the base class,
         // in this case db context
 
@@ -26,6 +26,7 @@ namespace API.Data
         //         //<product> is pulled in from entities/product.cs
         //                   // products is the name of the table that will be created
         public DbSet<Product> Products { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
     }
 } 
 
