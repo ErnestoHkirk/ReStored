@@ -25,9 +25,12 @@ namespace API.Entities
         }
 
         public void RemoveItem(int productId, int quantity) 
-        {
+        {   
+            // check if the item exists
             var item = Items.FirstOrDefault(item => item.ProductId == productId);
             if (item == null) return;
+            
+            // reduce item quantity
             item.Quantity -= quantity;
             if (item.Quantity == 0) Items.Remove(item);
         }
