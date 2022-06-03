@@ -5,18 +5,20 @@ import { PaginatedResponse } from "../models/pagination";
 
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 500)); //
 
-axios.defaults.baseURL = "http://localhost:5000/api/"; // base url
+axios.defaults.baseURL = process.env.REACT_APP_API_URL; // base url
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data; // helper method, extracts response.data
 
-axios.interceptors.response.use(
-  async (response) => {
-    await sleep();
+axios.interceptors.response.use(async (response) => {
+    if(process.env.NODE_ENV === "development") await sleep();
     const pagination = response.headers["pagination"];
     if (pagination) {
-      response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
-      console.log(response)
+      response.data = new PaginatedResponse(
+        response.data,
+        JSON.parse(pagination)
+      );
+      console.log(response);
       return response;
     }
     return response;

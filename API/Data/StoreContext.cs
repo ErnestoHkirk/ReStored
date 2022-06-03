@@ -1,9 +1,11 @@
 using API.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class StoreContext : DbContext  // crtl . (autocomplete) to select using statements
+    public class StoreContext : IdentityDbContext<User>  // crtl . (autocomplete) to select using statements
     // dbcontext: responsible for managing the connection
     // with the relational database, contains one or more dbsets.
     // the object relational manager, (ORM), accepts LINQ commands and 
@@ -15,7 +17,9 @@ namespace API.Data
         // class, in this case db context
 
         // the options for this constructor will be the database connection string
-        public StoreContext(DbContextOptions options) : base(options){}
+        public StoreContext(DbContextOptions options) : base(options)
+        {   
+        }
 
         // every entity needs a dbset property
 
@@ -23,6 +27,17 @@ namespace API.Data
         //                   // products is the name of the table that will be created
         public DbSet<Product> Products { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<IdentityRole>()
+                .HasData(
+                    new IdentityRole{Name = "Member", NormalizedName ="MEMBER"},
+                    new IdentityRole{Name = "Admin", NormalizedName ="ADMIN"}
+                );
+        }
     }
 } 
 

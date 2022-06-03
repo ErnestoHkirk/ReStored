@@ -46,7 +46,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
   const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <AppBar position="static" sx={{ mb: 4 }}>
+    <AppBar position="static">
       <Toolbar
         sx={{
           display: "flex",
@@ -62,7 +62,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
             to="/"
             sx={navStyles}
           >
-            RE-STORE
+            VORTEX SNOWGEAR
           </Typography>
           <Switch checked={darkMode} onChange={handleThemeChange} />
         </Box>
